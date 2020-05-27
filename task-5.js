@@ -21,9 +21,12 @@ class Car {
    *  isOn - заведен ли автомобиль, значения true или false. Изначально false
    *  distance - общий киллометраж, изначально 0
    */
-  constructor({ maxSpeed, price }) {
-    this.price = price;
-    this.maxSpeed = maxSpeed;
+  constructor(obj, speed = 0, isOn = false, distance = 0) {
+    this.maxSpeed = obj.maxSpeed;
+    this._price = obj.price;
+    this.speed = speed;
+    this.isOn = isOn;
+    this.distance = distance;
   }
 
   /*
@@ -61,7 +64,7 @@ class Car {
    * не больше чем значение свойства maxSpeed
    */
   accelerate(value) {
-    if (this.speed + value < this.maxSpeed) this.speed += value;
+    if (this.speed + value <= this.maxSpeed) this.speed += value;
   }
 
   /*
@@ -69,7 +72,12 @@ class Car {
    * при условии что результирующая скорость не меньше нуля
    */
   decelerate(value) {
-    if (this.speed - value >= 0) this.speed -= value;
+    if (this.speed - value >= 0) {
+      this.speed -= -value;
+    } else
+      console.log(
+        `Minimum car speed can not be less than 0, plese enter correct decelerate rate!`
+      );
   }
 
   /*
